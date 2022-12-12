@@ -1,9 +1,9 @@
 <?php
 
-$host = 'localhost';
-$database = 'php_w02';
-$username = 'keko';
-$password = 'lost';
+$host = '13.73.160.137';
+$database = 'modul346_login';
+$username = 'AdminSQL';
+$password = 'fqHui89**eoQ';
 
 // mit datenbank verbinden
 $mysqli = new mysqli($host, $username, $password, $database);
