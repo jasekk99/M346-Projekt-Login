@@ -1,7 +1,7 @@
 <?php
 
 $host = '13.73.160.137';
-$database = 'modul346_login';
+$database = 'm346_login';
 $username = 'AdminSQL';
 $password = 'fqHui89**eoQ';
 
