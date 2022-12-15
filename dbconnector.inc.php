@@ -1,6 +1,6 @@
 <?php
 
-$host = '13.73.160.137';
+$host = 'modul346-sql.mysql.database.azure.com';
 $database = 'm346_login';
 $username = 'AdminSQL';
 $password = 'fqHui89**eoQ';
