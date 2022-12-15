@@ -137,7 +137,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 					<label for="password">Password *</label>
 					<input type="password" name="password" class="form-control" id="password"
 							placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute"
-							pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
 							title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
 							required="true">
 				</div>
