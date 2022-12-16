@@ -80,6 +80,9 @@ echo $error;
                         <li class="nav-item">
                             <a class="nav-link" href="#">Projekte</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./Cloud/AzureBlobStorage.php">Cloud-Storage</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Account
@@ -87,7 +90,7 @@ echo $error;
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item active" href="#">Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="./LoggedIn/editProfile?user=<?php echo $user ?>">Edit</a></li>
+                                <li><a class="dropdown-item" href="./LoggedIn/editProfile.php?user=<?php echo $user ?>">Edit</a></li>
                             </ul>
                         </li>
                         <a href="#">

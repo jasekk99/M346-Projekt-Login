@@ -1,6 +1,13 @@
 <?php
 
-$host = 'modul346-sql.mysql.database.azure.com';
+
+//DONT FORGET to change these values when working on prod.
+//$host = 'modul346-sql.mysql.database.azure.com';
+//$database = 'm346_login';
+//$username = 'AdminSQL';
+//$password = 'fqHui89**eoQ';
+
+$host = 'localhost';
 $database = 'm346_login';
 $username = 'AdminSQL';
 $password = 'fqHui89**eoQ';
