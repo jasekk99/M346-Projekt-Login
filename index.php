@@ -60,9 +60,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   if(isset($_POST['password']) && !empty(trim($_POST['password']))){
     $password = trim($_POST['password']);
     //entspricht das passwort unseren vorgaben? (minimal 8 Zeichen, Zahlen, Buchstaben, keine Zeilenumbrüche, mindestens ein Gross- und ein Kleinbuchstabe)
-    if(!preg_match("/(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)){
-      $error .= "Das Passwort entspricht nicht dem geforderten Format.<br />";
-    }
+    //if(!preg_match("/(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)){
+      //$error .= "Das Passwort entspricht nicht dem geforderten Format.<br />";
+    //}
   } else {
     // Ausgabe Fehlermeldung
     $error .= "Geben Sie bitte einen korrekten Nachnamen ein.<br />";
@@ -208,7 +208,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                   value="<?php echo $username ?>"
                   placeholder="Gross- und Keinbuchstaben, min 6 Zeichen."
                   maxlength="30" required="true"
-                  pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}"
                   title="Gross- und Keinbuchstaben, min 6 Zeichen.">
         </div>
         <!-- password -->
@@ -216,7 +215,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
           <label for="password">Password *</label>
           <input type="password" name="password" class="form-control" id="password"
                   placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute"
-                  pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                   title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
                   required="true">
         </div>
