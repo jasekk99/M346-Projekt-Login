@@ -203,9 +203,6 @@ foreach($list->getFiles() as &$file) {
             $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
             foreach ($result->getBlobs() as $blob)
             {
-                $_SESSION['connectionString']=$connectionString;
-                $_SESSION['containerName']=$containerName;
-                $_SESSION['blob']=$blob;
 
                 echo "<div class='grid-item'><a href='".$blob->getUrl()."'>";
                 iconDecision(array_pop(explode('.', $blob->getName())));
@@ -213,7 +210,7 @@ foreach($list->getFiles() as &$file) {
                 echo $blob->getName()."<br />";
                 $blob = $blob->getName();
                 echo "</a>
-                <a class='btn btn-danger' href='delete_file.php?connectionString=".$connectionString."&containerName=".$containerName."&blob=".$blob."'></a>
+                <a class='btn btn-danger' href='delete_file.php?user=".$user."&blob=".$blob."'></a>
                 </div>";
             }
             //echo "<input type='submit' href='delete_file.php?connectionString=".$connectionString."&container=".$container."&blob=".$blob."&' class='deleteLink'>";

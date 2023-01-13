@@ -7,11 +7,18 @@ use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 use MicrosoftAzure\Storage\Blob\Models\Block;
 
-$connectionString=$_GET['connectionString'];
-$blobClient = BlobRestProxy::createBlobService($connectionString);
-$containerName=$_GET['containerName'];
+
+
+$user=$_GET['user'];
 $blob=$_GET['blob'];
-$filename=$_GET['filename'];
+$accountName = "cloudfiles346";
+$accountKey = "s2AVwbX9uKNahDSY8mRWtXwEjD74aQ3MhFLburU3KNC04p6GlOVrijB2+TG4f+lMasfhXg1Y9mo5+ASt+g8L/w==";
+$connectionString = "DefaultEndpointsProtocol=https;AccountName=$accountName;AccountKey=$accountKey";
+$blobClient = BlobRestProxy::createBlobService($connectionString);
+
+$containerName = strtolower($user."blobcontainer");
+
+
 
 //$connectionString = $_SESSION['connectionString'];
 //$blobClient = BlobRestProxy::createBlobService($connectionString);
@@ -24,7 +31,7 @@ echo $containerName;
 echo " |||| ";
 echo $blob;
 
-$cloudStorageHome="AzureBlobStorage.php";
+$cloudStorageHome="AzureBlobStorage.php?user=".$user;
 
 
 //$result = $blobClient->acquireLease($containerName, $blob);
