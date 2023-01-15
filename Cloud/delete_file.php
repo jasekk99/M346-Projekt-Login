@@ -35,7 +35,7 @@ echo $containerName;
 echo " |||| ";
 echo $blob;
 
-$cloudStorageHome="AzureBlobStorage.php?user=".$user;
+$cloudStorageHome="AzureBlobStorage.php";
 
 
 //$result = $blobClient->acquireLease($containerName, $blob);
