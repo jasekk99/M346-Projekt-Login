@@ -32,9 +32,9 @@ $blobClient = BlobRestProxy::createBlobService($connectionString);
 $listBlobsOptions = new ListBlobsOptions();
 $listBlobsOptions->setPrefix("");
 
-if(!isset($_SESSION['ContainerCreated'])){
-    header('Location: AzureCreateBlobContainer.php');
-}
+//if(!isset($_SESSION['ContainerCreated'])){
+  //  header('Location: AzureCreateBlobContainer.php');
+//}
 
 function iconDecision($filetype) {
     global $fileIcon;
