@@ -7,10 +7,10 @@
 //$username = 'AdminSQL';
 //$password = 'fqHui89**eoQ';
 
-$host = 'localhost';
+$host = 'modul346-sql.mysql.database.azure.com';
 $database = 'm346_login';
 $username = 'AdminSQL';
-$password = 'fqHui89**eoQ';
+$password = 'modul346!';
 
 // mit datenbank verbinden
 $mysqli = new mysqli($host, $username, $password, $database);

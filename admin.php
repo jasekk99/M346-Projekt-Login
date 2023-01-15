@@ -3,7 +3,7 @@ session_start();
 include "dbconnector.inc.php";
 
 // Check user login or not
-if(!isset($_SESSION[$_GET['user']])){
+if(!isset($_SESSION['username'])){
     header('Location: login.php?fromFail=true');
 }
 
@@ -13,7 +13,7 @@ if(isset($_POST['but_logout'])){
     header('Location: login.php');
 }
 
-$user = $_GET['user'];
+$user = $_SESSION['username'];
 $error = '';
 
 if(isset($_POST['DeleteAccount'])){
@@ -75,7 +75,7 @@ echo $error;
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="./Cloud/AzureBlobStorage.php?user=<?php echo $user ?>">Cloud-Storage</a>
+                            <a class="nav-link" href="./Cloud/AzureBlobStorage.php">Cloud-Storage</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -84,7 +84,7 @@ echo $error;
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item active" href="#">Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="./LoggedIn/editProfile.php?user=<?php echo $user ?>">Edit</a></li>
+                                <li><a class="dropdown-item" href="./LoggedIn/editProfile.php">Edit</a></li>
                             </ul>
                         </li>
                         <a href="#">
@@ -151,7 +151,7 @@ echo $error;
                         <?php if ($user == "Jasekk"){echo '
                         <button class="btn btn-primary dropdown-toggle AdminAccButton" data-bs-toggle="dropdown" aria-expanded="false">Admin controls &#128295;</button>
                         <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="./LoggedIn/editProfile.php?user='.$user.'">Edit Profile</a></li>
+                        <li><a class="dropdown-item" href="./LoggedIn/editProfile.php">Edit Profile</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item localFolderBtn" href="#">Open local folder</a></li>
                         <li><a class="dropdown-item" href="#">Control panel</a></li>
@@ -160,6 +160,10 @@ echo $error;
                     </form>
                 </div>
                 <h1 id="time"></h1>
+                <?php 
+                echo $_SESSION['username'];
+                ?>
+                <br>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>

@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_SESSION['username'])){
+    header('Location: login.php?fromFail=true');
+}
 function console_log($output, $with_script_tags = true) {
     $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
 ');';
@@ -17,7 +20,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 use MicrosoftAzure\Storage\Blob\Models\Block;
 
-$user = $_GET['user'];
+$user = $_SESSION['username'];
 
 $accountName = "cloudfiles346";
 $accountKey = "s2AVwbX9uKNahDSY8mRWtXwEjD74aQ3MhFLburU3KNC04p6GlOVrijB2+TG4f+lMasfhXg1Y9mo5+ASt+g8L/w==";
@@ -28,6 +31,10 @@ $blobClient = BlobRestProxy::createBlobService($connectionString);
 
 $listBlobsOptions = new ListBlobsOptions();
 $listBlobsOptions->setPrefix("");
+
+if(!isset($_SESSION['ContainerCreated'])){
+    header('Location: AzureCreateBlobContainer.php');
+}
 
 function iconDecision($filetype) {
     global $fileIcon;
@@ -110,9 +117,15 @@ foreach($list->getFiles() as &$file) {
             
             .grid-item{
                 padding: 20px;
+                margin: 15px;
                 height: 171px;
                 width: 176px;
                 transition: 0.25s;
+                border-radius: 50px;
+                border-radius: 9px;
+background: #ffffff;
+box-shadow:  21px 21px 41px #d9d9d9,
+             -21px -21px 41px #ffffff;
             }
 
             .grid-item:hover{
@@ -135,6 +148,10 @@ foreach($list->getFiles() as &$file) {
                 height: 20px;
             }
 
+            .deleteIcon{
+                width: 10px;
+            }
+
             a{
                 text-decoration:none;
             }
@@ -145,13 +162,13 @@ foreach($list->getFiles() as &$file) {
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../admin.php?user=<?php $user ?>">Projekt Modul 346</a>
+                <a class="navbar-brand" href="../admin.php">Projekt Modul 346</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <li class="nav-item">
-                            <a class="nav-link" href="./Cloud/AzureBlobStorage.php?user=<?php echo $user ?>">Cloud-Storage</a>
+                            <a class="nav-link" href="./Cloud/AzureBlobStorage.php">Cloud-Storage</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -160,7 +177,7 @@ foreach($list->getFiles() as &$file) {
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item active" href="#">Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="./LoggedIn/editProfile.php?user=<?php echo $user ?>">Edit</a></li>
+                                <li><a class="dropdown-item" href="./LoggedIn/editProfile.php">Edit</a></li>
                             </ul>
                         </li>
                         <a href="#">
@@ -186,9 +203,6 @@ foreach($list->getFiles() as &$file) {
     <!-- Navbar End -->
     </header>
     <body>
-    <form action='' method='post' enctype='multipart/form-data'>
-                    <input type='submit' value='Delete' name='Delete_File' class='btn btn-danger'>
-                </form>
         <br>
         <div class="upload-container">
             <form action="" method="post" enctype="multipart/form-data">
@@ -199,22 +213,28 @@ foreach($list->getFiles() as &$file) {
         <div class="files">
             <div class='grid-container'>
         <?php
-        do{
-            $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-            foreach ($result->getBlobs() as $blob)
-            {
+        
 
-                echo "<div class='grid-item'><a href='".$blob->getUrl()."'>";
-                iconDecision(array_pop(explode('.', $blob->getName())));
-                echo "<img src='".$fileIcon."' width=50px height=50px' class='justify-content-center'></img><br />";
-                echo $blob->getName()."<br />";
-                $blob = $blob->getName();
-                echo "</a>
-                <a class='btn btn-danger' href='delete_file.php?user=".$user."&blob=".$blob."'></a>
-                </div>";
-            }
+        
+        do{
+            
+                $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
+                foreach ($result->getBlobs() as $blob)
+                {
+
+                    echo "<div class='grid-item'><a href='".$blob->getUrl()."'>";
+                    iconDecision(array_pop(explode('.', $blob->getName())));
+                    echo "<img src='".$fileIcon."' width=50px height=50px' class='justify-content-center'></img><br />";
+                    echo $blob->getName()."<br />";
+                    $blob = $blob->getName();
+                    echo "</a>
+                    <a class='btn btn-danger' href='delete_file.php?blob=".$blob."'>Delete</a>
+                    </div>";
+                }
             //echo "<input type='submit' href='delete_file.php?connectionString=".$connectionString."&container=".$container."&blob=".$blob."&' class='deleteLink'>";
             $listBlobsOptions->setContinuationToken($result->getContinuationToken());
+            
+            
         } while($result->getContinuationToken());
         
         ?>

@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 //Datenbankverbindung
 include('dbconnector.inc.php');
 
@@ -58,10 +58,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 			// passwort prüfen
 			if(password_verify($password, $row['password'])){
 				$message .= "Sie sind nun eingeloggt";
-
+				session_start();
 				session_regenerate_id();
-				$_SESSION[$username] = "true";
-				header('Location: admin.php?user='.$username.'&fromLogin=true');
+				$sID=session_id();
+				$query = "SELECT username from users where username = ?";
+				// query vorbereiten
+				$stmt = $mysqli->prepare($query);
+				if($stmt===false){
+					$error .= 'prepare() failed '. $mysqli->error . '<br />';
+				}
+				// parameter an query binden
+				if(!$stmt->bind_param("s", $username)){
+					$error .= 'bind_param() failed '. $mysqli->error . '<br />';
+				}
+				// query ausführen
+				if(!$stmt->execute()){
+					$error .= 'execute() failed '. $mysqli->error . '<br />';
+				}
+				// daten auslesen
+				$result = $stmt->get_result();
+				$row = $result->fetch_assoc();
+				$_SESSION['username'] = $row['username'];
+				header('Location: admin.php?fromLogin=true');
 				
 			// benutzername oder passwort stimmen nicht,
 			} else {
@@ -147,6 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 			<br>
 			<p>Haben sie noch kein Account?</p>
 			<a href="index.php"><button class="btn btn-success">Account Erstellen</button></a>
+			<br>
 		</div>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(!isset($_SESSION['username'])){
+    header('Location: ../login.php');
+}
 require_once "../vendor/autoload.php"; 
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
@@ -9,7 +13,7 @@ use MicrosoftAzure\Storage\Blob\Models\Block;
 
 
 
-$user=$_GET['user'];
+$user=$_SESSION['username'];
 $blob=$_GET['blob'];
 $accountName = "cloudfiles346";
 $accountKey = "s2AVwbX9uKNahDSY8mRWtXwEjD74aQ3MhFLburU3KNC04p6GlOVrijB2+TG4f+lMasfhXg1Y9mo5+ASt+g8L/w==";

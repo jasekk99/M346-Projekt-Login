@@ -3,15 +3,15 @@ session_start();
 include "../dbconnector.inc.php";
 
 // Check user login or not
-if(!isset($_SESSION[$_GET['user']])){
+if(!isset($_SESSION['username'])){
     header('Location: ../login.php');
 }
 
-$user = $_GET['user'];
+$user = $_SESSION['username'];
 
 // logout
 if(isset($_POST['Back'])){
-    header('Location: ../admin.php?user='.$user.'');
+    header('Location: ../admin.php');
 }
 ?>
 <!doctype html>
@@ -46,7 +46,7 @@ if(isset($_POST['Back'])){
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="../Clicker/index.php?user=<?php echo $user ?>">Clicker</a>
+                            <a class="nav-link" aria-current="page" href="../Clicker/index.php">Clicker</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Projekte</a>
@@ -56,12 +56,12 @@ if(isset($_POST['Back'])){
                             Account
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="../admin.php?user=<?php echo $user ?>">Profile</a></li>
+                                <li><a class="dropdown-item" href="../admin.php">Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item active" href="#">Edit</a></li>
                             </ul>
                         </li>
-                    <a href="../admin.php?user=<?php echo $user; ?>">
+                    <a href="../admin.php">
                             <img class="profilePictureNav" src=
                                 <?php
                                     if(file_exists("../img/".$user.".jpg")){
