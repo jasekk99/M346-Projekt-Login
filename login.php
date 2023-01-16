@@ -1,5 +1,4 @@
 <?php
-
 //Datenbankverbindung
 include('dbconnector.inc.php');
 
@@ -61,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 				session_start();
 				session_regenerate_id();
 				$sID=session_id();
+				$_SESSION['sessionId'] = $sID;
 				$query = "SELECT username from users where username = ?";
 				// query vorbereiten
 				$stmt = $mysqli->prepare($query);

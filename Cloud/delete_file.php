@@ -29,11 +29,11 @@ $containerName = strtolower($user."blobcontainer");
 //$container = $_SESSION['containerName'];
 //$blob = $_SESSION['blob'];
 
-echo $connectionString;
-echo " |||| ";
-echo $containerName;
-echo " |||| ";
-echo $blob;
+//echo $connectionString;
+//echo " |||| ";
+//echo $containerName;
+//echo " |||| ";
+//echo $blob;
 
 $cloudStorageHome="AzureBlobStorage.php";
 
@@ -42,9 +42,7 @@ $cloudStorageHome="AzureBlobStorage.php";
 //$blobOptions = new DeleteBlobOptions();
 //$blobOptions->setLeaseId($result->getLeaseId());
 $blobClient->deleteBlob($containerName, $blob);
-echo "code was run but nothing happened i guess???";
 $run=true;
-echo "!!!!!!!!OMG IT ACTUALLY RAN!!!!!!";
 sleep(5);
 header('Location: '.$cloudStorageHome);
 ?>

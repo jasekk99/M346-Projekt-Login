@@ -1,5 +1,5 @@
 <?php
-
+start_session();
 //verbindung zur Datenbank Auslagern
 include('dbconnector.inc.php');
 
